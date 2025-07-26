@@ -16,7 +16,7 @@
 
         * {
             box-sizing: border-box;
-            transition: all 0.2s ease;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         body {
@@ -28,25 +28,9 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        body::after {
-            content: "LAMODA";
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
-            font-size: 40vw;
-            font-weight: 900;
-            color: rgba(227, 30, 36, 0.05);
-            z-index: -1;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        /* Header */
         .header {
             background-color: var(--lamoda-black);
             color: var(--lamoda-white);
@@ -56,8 +40,7 @@
             align-items: center;
             flex-wrap: wrap;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
+            position: relative;
             z-index: 100;
         }
 
@@ -66,17 +49,12 @@
             font-size: 18px;
             font-weight: 600;
             flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .header-controls {
             display: flex;
             gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
-            justify-content: flex-end;
         }
 
         .total-counter {
@@ -85,7 +63,6 @@
             border-radius: 16px;
             font-size: 12px;
             margin-right: 8px;
-            white-space: nowrap;
         }
 
         button {
@@ -101,7 +78,6 @@
             align-items: center;
             gap: 6px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            white-space: nowrap;
         }
 
         button:hover {
@@ -110,172 +86,166 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        /* Main layout */
-        .main-container {
+        button:active {
+            transform: translateY(0);
+        }
+
+        .main-content {
             display: flex;
             flex: 1;
             overflow: hidden;
             gap: 15px;
             padding: 15px;
-        }
-
-        /* Left panel - sections */
-        .sections-panel {
-            flex: 0 0 300px;
-            display: flex;
             flex-direction: column;
-            gap: 15px;
-            overflow-y: auto;
         }
 
-        .section-card {
+        @media (min-width: 768px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+
+        .staff-assignment {
+            flex: 2;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .section-header {
+        .staff-assignment h3 {
+            margin: 0;
+            padding: 12px 15px;
             background-color: var(--lamoda-black);
             color: white;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-size: 15px;
         }
 
-        .section-counter {
+        .assignment-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .staff-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 300px;
+        }
+
+        .staff-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .staff-section h3 {
+            margin: 0;
+            padding: 12px 15px;
+            background-color: var(--lamoda-black);
+            color: white;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .counter {
             background-color: rgba(255, 255, 255, 0.2);
             padding: 2px 8px;
             border-radius: 10px;
             font-size: 12px;
         }
 
-        .section-content {
-            padding: 10px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 8px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        /* Right panel - staff */
-        .staff-panel {
+        .dropzone {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            overflow: hidden;
+            padding: 10px;
+            overflow-y: auto;
+            min-height: 60px;
         }
 
-        .staff-tabs {
-            display: flex;
-            border-bottom: 1px solid #ddd;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
         }
 
-        .staff-tab {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
+        th, td {
+            border-bottom: 1px solid #eee;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--lamoda-light-gray);
             font-weight: 500;
-            transition: all 0.2s;
+            position: sticky;
+            top: 0;
         }
 
-        .staff-tab.active {
-            border-bottom-color: var(--lamoda-red);
+        .section-column {
+            width: 35%;
+        }
+
+        .employees-column {
+            width: 65%;
+        }
+
+        .employee {
+            background-color: white;
+            border: 1px solid #eee;
+            padding: 6px 10px;
+            margin: 4px;
+            border-radius: 4px;
+            cursor: move;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .employee:hover {
+            background-color: #FFF0F0;
+            border-color: #FFD6D6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            color: #999;
+            border: none;
+            padding: 0;
+            margin-left: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .delete-btn:hover {
+            background-color: #FFEBEB;
             color: var(--lamoda-red);
         }
 
-        .staff-tab:hover:not(.active) {
-            background-color: rgba(227, 30, 36, 0.1);
-        }
-
-        .staff-content {
-            flex: 1;
-            overflow-y: auto;
-            display: none;
-        }
-
-        .staff-content.active {
-            display: block;
-        }
-
-        .staff-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            padding: 5px;
-        }
-
-        /* Employee card */
-        .employee-card {
-            background-color: white;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: move;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .employee-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .dropzone.highlight {
+            background-color: #FFF0F0;
             border-color: var(--lamoda-red);
         }
 
-        .employee-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--lamoda-light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-            color: var(--lamoda-red);
-            font-weight: bold;
-        }
-
-        .employee-name {
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100%;
-        }
-
-        .employee-status {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #ccc;
-        }
-
-        .employee-status.available {
-            background-color: #4CAF50;
-        }
-
-        /* Dropzone styles */
-        .dropzone.highlight {
-            background-color: rgba(227, 30, 36, 0.05);
-            outline: 2px dashed var(--lamoda-red);
-            outline-offset: -2px;
-        }
-
-        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -286,6 +256,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s;
         }
 
         .modal-content {
@@ -309,6 +280,11 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--lamoda-black);
         }
 
         .modal-body {
@@ -338,7 +314,6 @@
             box-shadow: 0 0 0 2px rgba(227, 30, 36, 0.2);
         }
 
-        /* Archive items */
         .archive-item {
             padding: 12px 0;
             border-bottom: 1px solid #eee;
@@ -370,7 +345,10 @@
             gap: 8px;
         }
 
-        /* Toast notifications */
+        .archive-actions button {
+            padding: 6px 10px;
+        }
+
         .toast {
             position: fixed;
             bottom: 20px;
@@ -381,37 +359,34 @@
             border-radius: 4px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            animation: slideIn 0.3s, fadeOut 0.5s 2.5s forwards;
         }
 
-        .toast i {
-            font-size: 18px;
-        }
-
-        .toast-error {
-            background-color: #d32f2f;
-        }
-
-        .toast-info {
-            background-color: #1976d2;
-        }
-
-        /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { 
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeOut {
@@ -419,23 +394,23 @@
             to { opacity: 0; }
         }
 
-        /* Mobile adaptation */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
-            .sections-panel {
-                flex: 0 0 auto;
-                max-height: 300px;
-            }
-            
-            .staff-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
+        /* Мобильная адаптация */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 10px;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 767px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .header-controls {
                 display: none;
                 position: absolute;
@@ -454,12 +429,43 @@
                 display: flex;
             }
             
-            .mobile-menu-btn {
-                display: block;
+            .header h2 {
+                order: 2;
+                text-align: center;
+                margin-top: 10px;
+                flex-basis: 100%;
             }
             
-            .staff-tabs {
-                overflow-x: auto;
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .staff-assignment {
+                order: 1;
+            }
+            
+            .staff-list {
+                order: 2;
+            }
+            
+            .unavailable-staff {
+                flex-direction: column;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .employee {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+            
+            .section-column {
+                width: 40%;
+            }
+            
+            .employees-column {
+                width: 60%;
             }
         }
     </style>
@@ -477,40 +483,60 @@
         </div>
     </div>
     
-    <div class="main-container">
-        <!-- Left panel - sections -->
-        <div class="sections-panel" id="sectionsPanel">
-            <!-- Sections will be added dynamically -->
+    <div class="main-content">
+        <div class="staff-assignment">
+            <h3><i class="fas fa-map-marked-alt"></i> Расстановка персонала</h3>
+            <div class="assignment-container">
+                <table id="assignmentTable">
+                    <thead>
+                        <tr>
+                            <th class="section-column">Участок</th>
+                            <th class="employees-column">Сотрудники</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignmentBody"></tbody>
+                </table>
+            </div>
         </div>
         
-        <!-- Right panel - staff -->
-        <div class="staff-panel">
-            <div class="staff-tabs">
-                <div class="staff-tab active" data-tab="available">Доступные</div>
-                <div class="staff-tab" data-tab="vacation">Отпуск</div>
-                <div class="staff-tab" data-tab="sickLeave">Больничный</div>
-                <div class="staff-tab" data-tab="dayOff">Отгул</div>
+        <div class="staff-list">
+            <div class="staff-section">
+                <h3>
+                    <span><i class="fas fa-user-clock"></i> Доступные сотрудники</span>
+                    <span class="counter" id="availableCounter">0</span>
+                </h3>
+                <div id="availableStaff" class="dropzone"></div>
             </div>
             
-            <div class="staff-content active" id="availableStaff">
-                <div class="staff-grid"></div>
-            </div>
-            
-            <div class="staff-content" id="vacationStaff">
-                <div class="staff-grid"></div>
-            </div>
-            
-            <div class="staff-content" id="sickLeaveStaff">
-                <div class="staff-grid"></div>
-            </div>
-            
-            <div class="staff-content" id="dayOffStaff">
-                <div class="staff-grid"></div>
+            <div class="unavailable-staff">
+                <div class="staff-section">
+                    <h3>
+                        <span><i class="fas fa-umbrella-beach"></i> Отпуск</span>
+                        <span class="counter" id="vacationCounter">0</span>
+                    </h3>
+                    <div id="vacationStaff" class="dropzone"></div>
+                </div>
+                
+                <div class="staff-section">
+                    <h3>
+                        <span><i class="fas fa-procedures"></i> Больничный</span>
+                        <span class="counter" id="sickLeaveCounter">0</span>
+                    </h3>
+                    <div id="sickLeaveStaff" class="dropzone"></div>
+                </div>
+                
+                <div class="staff-section">
+                    <h3>
+                        <span><i class="far fa-calendar-minus"></i> Отгул</span>
+                        <span class="counter" id="dayOffCounter">0</span>
+                    </h3>
+                    <div id="dayOffStaff" class="dropzone"></div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- Archive modal -->
+    <!-- Модальные окна -->
     <div id="archiveModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -521,7 +547,6 @@
         </div>
     </div>
     
-    <!-- Save modal -->
     <div id="saveModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -538,7 +563,6 @@
         </div>
     </div>
     
-    <!-- Reset modal -->
     <div id="resetModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -554,7 +578,6 @@
         </div>
     </div>
     
-    <!-- Edit archive modal -->
     <div id="editArchiveModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -571,11 +594,11 @@
         </div>
     </div>
 
-    <!-- Excel export library -->
+    <!-- Библиотека для экспорта в Excel -->
     <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
     
     <script>
-        // App data
+        // Списки данных
         const employees = [
             "Ануров Роман", "Ивановская Екатерина", "Барчий Василий", "Власенко Дмитрий", 
             "Горявский Дмитрий", "Курбатов Валерий", "Курочкин Артём", "Курочкина Ксения", 
@@ -592,7 +615,7 @@
             "TS в отделе QA", "RQMI и 0052", "Not_found", "Тех. Локи",
         ];
         
-        // App state
+        // Состояние приложения
         let state = {
             available: [...employees],
             vacation: [],
@@ -602,112 +625,114 @@
             archive: JSON.parse(localStorage.getItem('shiftArchive')) || []
         };
         
-        // Initialize interface
-        function initInterface() {
-            initSectionsPanel();
-            initStaffTabs();
-            updateStaffPanels();
-            updateCounters();
-            setupDropzones();
-            setupMobileMenu();
-        }
-        
-        // Initialize sections panel
-        function initSectionsPanel() {
-            const panel = document.getElementById('sectionsPanel');
-            panel.innerHTML = '';
+        // Инициализация таблицы участков
+        function initAssignmentTable() {
+            const tbody = document.getElementById('assignmentBody');
+            tbody.innerHTML = '';
             
             sections.forEach(section => {
                 state.assignments[section] = state.assignments[section] || [];
                 
-                const sectionCard = document.createElement('div');
-                sectionCard.className = 'section-card';
-                sectionCard.innerHTML = `
-                    <div class="section-header">
-                        <span>${section}</span>
-                        <span class="section-counter">${state.assignments[section].length}</span>
-                    </div>
-                    <div class="section-content dropzone" data-section="${section}" id="section-${section.replace(/\s+/g, '-')}"></div>
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="section-column">${section}</td>
+                    <td class="employees-column dropzone" data-section="${section}"></td>
                 `;
+                tbody.appendChild(row);
                 
-                panel.appendChild(sectionCard);
                 updateSectionEmployees(section);
             });
         }
         
-        // Update employees in section
+        // Обновление сотрудников на участке
         function updateSectionEmployees(section) {
-            const container = document.querySelector(`#section-${section.replace(/\s+/g, '-')}`);
+            const cell = document.querySelector(`td[data-section="${section}"]`);
+            cell.innerHTML = '';
+            
+            const employees = state.assignments[section] || [];
+            employees.forEach(employee => {
+                const empElement = createEmployeeElement(employee, section);
+                cell.appendChild(empElement);
+            });
+        }
+        
+        // Создание элемента сотрудника
+        function createEmployeeElement(employee, source) {
+            const div = document.createElement('div');
+            div.className = 'employee';
+            div.textContent = employee;
+            div.draggable = true;
+            div.dataset.employee = employee;
+            div.dataset.source = source;
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = '&times;';
+            deleteBtn.onclick = (e) => {
+                e.stopPropagation();
+                removeEmployee(employee, source);
+                showToast('Сотрудник удален', 'info');
+            };
+            
+            div.appendChild(deleteBtn);
+            div.addEventListener('dragstart', dragStart);
+            
+            return div;
+        }
+        
+        // Инициализация списка доступных сотрудников
+        function initAvailableStaff() {
+            const container = document.getElementById('availableStaff');
             container.innerHTML = '';
             
-            state.assignments[section].forEach(employee => {
-                const empElement = createEmployeeElement(employee, section);
+            state.available.forEach(employee => {
+                const empElement = createEmployeeElement(employee, 'available');
                 container.appendChild(empElement);
             });
             
-            // Update counter
-            const counter = container.closest('.section-card').querySelector('.section-counter');
-            counter.textContent = state.assignments[section].length;
+            updateCounters();
+        }
+        
+        // Инициализация списков отсутствующих сотрудников
+        function initUnavailableStaff() {
+            initUnavailableSection('vacation', 'vacationStaff');
+            initUnavailableSection('sickLeave', 'sickLeaveStaff');
+            initUnavailableSection('dayOff', 'dayOffStaff');
+        }
+        
+        function initUnavailableSection(stateKey, elementId) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = '';
+            
+            state[stateKey].forEach(employee => {
+                const empElement = createEmployeeElement(employee, stateKey);
+                container.appendChild(empElement);
+            });
+            
+            updateCounters();
+        }
+        
+        // Обновление всех счетчиков
+        function updateCounters() {
+            document.getElementById('availableCounter').textContent = state.available.length;
+            document.getElementById('vacationCounter').textContent = state.vacation.length;
+            document.getElementById('sickLeaveCounter').textContent = state.sickLeave.length;
+            document.getElementById('dayOffCounter').textContent = state.dayOff.length;
             
             updateTotalCounters();
         }
         
-        // Initialize staff tabs
-        function initStaffTabs() {
-            document.querySelectorAll('.staff-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Deactivate all tabs
-                    document.querySelectorAll('.staff-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.staff-content').forEach(c => c.classList.remove('active'));
-                    
-                    // Activate current
-                    this.classList.add('active');
-                    document.getElementById(`${this.dataset.tab}Staff`).classList.add('active');
-                });
-            });
+        // Обновление счетчика расставленного персонала
+        function updateTotalCounters() {
+            const totalAssigned = Object.values(state.assignments).reduce((sum, employees) => sum + employees.length, 0);
+            const unavailable = state.vacation.length + state.sickLeave.length + state.dayOff.length;
+            const totalAvailable = employees.length - unavailable;
+            
+            document.getElementById('totalAssignedCounter').textContent = totalAssigned;
+            document.getElementById('totalAvailableCounter').textContent = totalAvailable;
         }
         
-        // Update staff panels
-        function updateStaffPanels() {
-            updateStaffPanel('available');
-            updateStaffPanel('vacation');
-            updateStaffPanel('sickLeave');
-            updateStaffPanel('dayOff');
-            updateCounters();
-        }
-        
-        function updateStaffPanel(type) {
-            const container = document.querySelector(`#${type}Staff .staff-grid`);
-            container.innerHTML = '';
-            
-            state[type].forEach(employee => {
-                const empElement = createEmployeeElement(employee, type);
-                container.appendChild(empElement);
-            });
-        }
-        
-        // Create employee element
-        function createEmployeeElement(employee, source) {
-            const card = document.createElement('div');
-            card.className = 'employee-card';
-            card.draggable = true;
-            card.dataset.employee = employee;
-            card.dataset.source = source;
-            
-            // Generate avatar from initials
-            const initials = employee.split(' ').map(n => n[0]).join('');
-            
-            card.innerHTML = `
-                <div class="employee-avatar">${initials}</div>
-                <div class="employee-name">${employee}</div>
-                <div class="employee-status ${source === 'available' ? 'available' : ''}"></div>
-            `;
-            
-            card.addEventListener('dragstart', dragStart);
-            return card;
-        }
-        
-        // Drag and drop functionality
+        // Drag and Drop функционал
         function dragStart(e) {
             e.dataTransfer.setData('text/plain', JSON.stringify({
                 employee: e.target.dataset.employee,
@@ -748,7 +773,7 @@
             });
         }
         
-        // Move employee between sections
+        // Перемещение сотрудника
         function moveEmployee(employee, source, target) {
             if (source === target) return;
             
@@ -760,6 +785,7 @@
             }
             
             updateUIAfterMove(employee, source, target);
+            updateCounters();
             showToast(`Сотрудник перемещен в ${getTargetName(target)}`, 'success');
         }
         
@@ -826,19 +852,19 @@
         
         function updateUIAfterMove(employee, source, target) {
             if (source === 'available' || target === 'available') {
-                updateStaffPanel('available');
+                initAvailableStaff();
             }
             
             if (source === 'vacation' || target === 'vacation') {
-                updateStaffPanel('vacation');
+                initUnavailableSection('vacation', 'vacationStaff');
             }
             
             if (source === 'sickLeave' || target === 'sickLeave') {
-                updateStaffPanel('sickLeave');
+                initUnavailableSection('sickLeave', 'sickLeaveStaff');
             }
             
             if (source === 'dayOff' || target === 'dayOff') {
-                updateStaffPanel('dayOff');
+                initUnavailableSection('dayOff', 'dayOffStaff');
             }
             
             if (state.assignments[source]) {
@@ -848,30 +874,33 @@
             if (state.assignments[target]) {
                 updateSectionEmployees(target);
             }
+        }
+        
+        // Удаление сотрудника
+        function removeEmployee(employee, source) {
+            removeEmployeeFromSource(employee, source);
+            
+            if (!state.available.includes(employee)) {
+                state.available.push(employee);
+            }
+            
+            if (source === 'available') {
+                initAvailableStaff();
+            } else if (source === 'vacation') {
+                initUnavailableSection('vacation', 'vacationStaff');
+            } else if (source === 'sickLeave') {
+                initUnavailableSection('sickLeave', 'sickLeaveStaff');
+            } else if (source === 'dayOff') {
+                initUnavailableSection('dayOff', 'dayOffStaff');
+            } else if (state.assignments[source]) {
+                updateSectionEmployees(source);
+                initAvailableStaff();
+            }
             
             updateCounters();
         }
         
-        // Update counters
-        function updateCounters() {
-            document.getElementById('availableCounter').textContent = state.available.length;
-            document.getElementById('vacationCounter').textContent = state.vacation.length;
-            document.getElementById('sickLeaveCounter').textContent = state.sickLeave.length;
-            document.getElementById('dayOffCounter').textContent = state.dayOff.length;
-            
-            updateTotalCounters();
-        }
-        
-        function updateTotalCounters() {
-            const totalAssigned = Object.values(state.assignments).reduce((sum, employees) => sum + employees.length, 0);
-            const unavailable = state.vacation.length + state.sickLeave.length + state.dayOff.length;
-            const totalAvailable = employees.length - unavailable;
-            
-            document.getElementById('totalAssignedCounter').textContent = totalAssigned;
-            document.getElementById('totalAvailableCounter').textContent = totalAvailable;
-        }
-        
-        // Reset all data
+        // Сброс всех данных
         function resetAll() {
             state = {
                 available: [...employees],
@@ -882,11 +911,13 @@
                 archive: state.archive
             };
             
-            initInterface();
+            initAssignmentTable();
+            initAvailableStaff();
+            initUnavailableStaff();
             showToast('Все данные сброшены', 'info');
         }
         
-        // Save to archive
+        // Сохранение в архив
         function saveToArchive(name) {
             if (!name.trim()) {
                 showToast('Пожалуйста, введите название смены', 'error');
@@ -912,7 +943,7 @@
             showToast('Смена сохранена в архив', 'success');
         }
         
-        // Load from archive
+        // Загрузка из архива
         function loadFromArchive(index) {
             const shiftData = state.archive[index];
             state.available = [...shiftData.data.available];
@@ -921,12 +952,16 @@
             state.dayOff = [...shiftData.data.dayOff];
             state.assignments = JSON.parse(JSON.stringify(shiftData.data.assignments));
             
-            initInterface();
+            initAssignmentTable();
+            initAvailableStaff();
+            initUnavailableStaff();
+            setupDropzones();
+            
             document.getElementById('archiveModal').style.display = 'none';
             showToast(`Загружена смена "${shiftData.name}"`, 'success');
         }
         
-        // Delete from archive
+        // Удаление из архива
         function deleteFromArchive(index) {
             state.archive.splice(index, 1);
             localStorage.setItem('shiftArchive', JSON.stringify(state.archive));
@@ -934,7 +969,7 @@
             showToast('Запись удалена из архива', 'info');
         }
         
-        // Edit archive item
+        // Редактирование записи в архиве
         function editArchiveItem(index, newName) {
             if (!newName.trim()) {
                 showToast('Пожалуйста, введите название смены', 'error');
@@ -948,7 +983,7 @@
             showToast('Название смены изменено', 'success');
         }
         
-        // Show archive
+        // Показать архив
         function showArchive() {
             const archiveList = document.getElementById('archiveList');
             archiveList.innerHTML = '';
@@ -977,12 +1012,12 @@
             document.getElementById('archiveModal').style.display = 'block';
         }
 
-        // Export to Excel
+        // Экспорт в Excel
         function exportToExcel() {
-            // Create workbook
+            // Создаем рабочую книгу
             const wb = XLSX.utils.book_new();
             
-            // Prepare assignment data
+            // Подготовка данных для листа "Расстановка"
             const assignmentData = [["Участок", "Сотрудники"]];
             
             sections.forEach(section => {
@@ -990,11 +1025,11 @@
                 assignmentData.push([section, employees.join(", ")]);
             });
             
-            // Create worksheet
+            // Создаем лист
             const assignmentWs = XLSX.utils.aoa_to_sheet(assignmentData);
             XLSX.utils.book_append_sheet(wb, assignmentWs, "Расстановка");
             
-            // Prepare status data
+            // Подготовка данных для листа "Статусы"
             const statusData = [
                 ["Статус", "Сотрудники"],
                 ["Доступные", state.available.join(", ")],
@@ -1003,51 +1038,40 @@
                 ["Отгул", state.dayOff.join(", ")]
             ];
             
-            // Create worksheet
+            // Создаем лист
             const statusWs = XLSX.utils.aoa_to_sheet(statusData);
             XLSX.utils.book_append_sheet(wb, statusWs, "Статусы");
             
-            // Generate filename with current date
+            // Генерируем имя файла с текущей датой
             const date = new Date();
             const fileName = `Расстановка_Lamoda_${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}.xlsx`;
             
-            // Save file
+            // Сохраняем файл
             XLSX.writeFile(wb, fileName);
             showToast('Данные экспортированы в Excel', 'success');
         }
         
-        // Show toast notification
+        // Всплывающие уведомления
         function showToast(message, type = 'success') {
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-            
-            const icon = type === 'success' ? 'check-circle' : 
-                         type === 'error' ? 'exclamation-circle' : 'info-circle';
-            
             toast.innerHTML = `
-                <i class="fas fa-${icon}"></i>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
                 ${message}
             `;
-            
             document.body.appendChild(toast);
-            
-            // Animation
-            toast.style.animation = 'slideIn 0.3s, fadeOut 0.5s 2.5s forwards';
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
         
-        // Initialize modals
+        // Инициализация модальных окон
         function initModals() {
-            // Archive modal
+            // Архив
             document.getElementById('archiveBtn').addEventListener('click', showArchive);
             document.getElementById('closeArchiveBtn').addEventListener('click', () => {
                 document.getElementById('archiveModal').style.display = 'none';
             });
             
-            // Save modal
+            // Сохранение
             document.getElementById('saveBtn').addEventListener('click', () => {
                 document.getElementById('saveModal').style.display = 'block';
                 document.getElementById('shiftName').focus();
@@ -1061,7 +1085,7 @@
                 saveToArchive(document.getElementById('shiftName').value);
             });
             
-            // Reset modal
+            // Сброс
             document.getElementById('resetBtn').addEventListener('click', () => {
                 document.getElementById('resetModal').style.display = 'block';
             });
@@ -1075,7 +1099,7 @@
                 document.getElementById('resetModal').style.display = 'none';
             });
             
-            // Edit archive modal
+            // Редактирование архива
             document.getElementById('cancelEditBtn').addEventListener('click', () => {
                 document.getElementById('editArchiveModal').style.display = 'none';
             });
@@ -1085,10 +1109,10 @@
                 editArchiveItem(index, document.getElementById('editShiftName').value);
             });
             
-            // Export to Excel
+            // Экспорт в Excel
             document.getElementById('exportBtn').addEventListener('click', exportToExcel);
             
-            // Archive item actions
+            // Обработчики для динамически создаваемых кнопок архива
             document.addEventListener('click', (e) => {
                 if (e.target.closest('.load-archive-btn')) {
                     const btn = e.target.closest('.load-archive-btn');
@@ -1107,39 +1131,37 @@
                 }
             });
             
-            // Close modals when clicking outside
+            // Закрытие модальных окон при клике вне их
             window.addEventListener('click', (e) => {
                 if (e.target.classList.contains('modal')) {
                     e.target.style.display = 'none';
                 }
             });
+
+            // Мобильное меню
+            document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+                document.querySelector('.header-controls').classList.toggle('active');
+            });
+
+            // Закрытие мобильного меню при клике на пункт
+            document.querySelectorAll('.header-controls button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('.header-controls').classList.remove('active');
+                });
+            });
         }
         
-        // Setup mobile menu
-        function setupMobileMenu() {
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const headerControls = document.querySelector('.header-controls');
-            
-            if (menuBtn && headerControls) {
-                menuBtn.addEventListener('click', function() {
-                    headerControls.classList.toggle('active');
-                });
-                
-                // Close menu when clicking on item
-                document.querySelectorAll('.header-controls button').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        headerControls.classList.remove('active');
-                    });
-                });
-            }
-        }
-        
-        // Initialize app
+        // Инициализация приложения
         function init() {
-            initInterface();
+            initAssignmentTable();
+            initAvailableStaff();
+            initUnavailableStaff();
+            setupDropzones();
             initModals();
+            updateTotalCounters();
         }
         
+        // Запуск приложения
         window.onload = init;
     </script>
 </body>
