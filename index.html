@@ -2,9 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>StaffPlace — Расстановка сотрудников</title>
+  <title>Расстановка сотрудников</title>
   <style>
-    /* Сброс стилей и базовые */
     * {
       margin: 0;
       padding: 0;
@@ -17,9 +16,19 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      padding-top: 20px;
     }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #eee;
+      letter-spacing: 0.5px;
+    }
+
     #container {
       position: relative;
       width: 980px;
@@ -29,6 +38,7 @@
       box-shadow: 0 0 20px #111;
       user-select: none;
     }
+
     .spot {
       position: absolute;
       width: 150px;
@@ -49,6 +59,7 @@
         0 2px 5px rgba(0,0,0,0.5);
       transition: background-color 0.3s;
     }
+
     .spot:hover {
       background: #4c5270;
       box-shadow:
@@ -58,11 +69,10 @@
   </style>
 </head>
 <body>
+  <h1>Расстановка сотрудников</h1>
   <div id="container"></div>
 
   <script>
-    // Координаты позиций с оригинального сайта (примерно)
-    // Расположим как в оригинале, 18 человек
     const positions = [
       {x: 12, y: 10},
       {x: 250, y: 10},
@@ -111,7 +121,7 @@
 
     const container = document.getElementById('container');
 
-    for(let i=0; i<names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
       const spot = document.createElement('div');
       spot.className = 'spot';
       spot.style.left = positions[i].x + 'px';
