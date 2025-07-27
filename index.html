@@ -193,10 +193,19 @@
 
         .section-column {
             width: 35%;
+            vertical-align: top;
+            position: relative;
         }
 
         .employees-column {
             width: 65%;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .employees-container {
+            min-height: 30px;
+            display: block;
         }
 
         .employee {
@@ -636,7 +645,9 @@
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td class="section-column">${section}</td>
-                    <td class="employees-column dropzone" data-section="${section}"></td>
+                    <td class="employees-column dropzone" data-section="${section}">
+                        <div class="employees-container"></div>
+                    </td>
                 `;
                 tbody.appendChild(row);
                 
@@ -646,7 +657,9 @@
         
         // Обновление сотрудников на участке
         function updateSectionEmployees(section) {
-            const cell = document.querySelector(`td[data-section="${section}"]`);
+            const cell = document.querySelector(`td[data-section="${section}"] .employees-container`);
+            if (!cell) return;
+            
             cell.innerHTML = '';
             
             const employees = state.assignments[section] || [];
@@ -654,6 +667,15 @@
                 const empElement = createEmployeeElement(employee, section);
                 cell.appendChild(empElement);
             });
+            
+            // Если нет сотрудников, добавляем невидимый элемент для сохранения высоты
+            if (employees.length === 0) {
+                const spacer = document.createElement('div');
+                spacer.style.visibility = 'hidden';
+                spacer.style.height = '30px';
+                spacer.innerHTML = '&nbsp;';
+                cell.appendChild(spacer);
+            }
         }
         
         // Создание элемента сотрудника
